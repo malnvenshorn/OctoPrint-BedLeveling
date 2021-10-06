@@ -1,0 +1,36 @@
+#control_plugin_bed_leveling .custom_section {
+  overflow: hidden;
+}
+#control_plugin_bed_leveling .jog-panel {
+  margin-left: 38px;
+  margin-top: -20px;
+}
+#control_plugin_bed_leveling .inline-table {
+  float: left;
+  margin-bottom: 10px;
+}
+#control_plugin_bed_leveling .horizontal-line {
+  height: 0;
+  width: 20px;
+  margin: 0 10px;
+}
+#control_plugin_bed_leveling .vertical-line {
+  height: 20px;
+  width: 0;
+  margin: 10px auto;
+}
+#control_plugin_bed_leveling .line-skin {
+  border: 1px #000 solid;
+}
+#control_plugin_bed_leveling td {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+#control_plugin_bed_leveling .bed-table {
+  border: 1px #e5e5e5 solid;
+  margin-right: 19px;
+}
+#settings_plugin_bed_leveling .input-append {
+  margin-right: 8px;
+}

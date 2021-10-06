@@ -1,0 +1,20 @@
+extends: "airbnb-base"
+ignorePatterns:
+  - "dist/"
+parserOptions:
+  ecmaVersion: 2020
+env:
+  browser: true
+globals:
+  # Knockout
+  ko: false
+  # OctoPrint
+  OctoPrint: false
+  OCTOPRINT_VIEWMODELS: false
+rules:
+  indent:
+    - error
+    - 4
+  max-len:
+    - error
+    - code: 120

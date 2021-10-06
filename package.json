@@ -1,0 +1,32 @@
+{
+  "config": {
+    "src": "src/octoprint_bed_leveling/"
+  },
+  "scripts": {
+    "clean": "cd $npm_package_config_src && rm -rf static/dist/",
+    "build": "npm-run-all clean lint:* -p build:*",
+    "lint:js": "npx eslint src/",
+    "build:js": "cd $npm_package_config_src && rollup --format es --file static/dist/plugin.js static/js/main.js",
+    "build:less": "cd $npm_package_config_src && lessc --glob static/less/main.less static/dist/plugin.css",
+    "browsersync": "npm-run-all -p watch:* syncserver",
+    "watch:py": "cd $npm_package_config_src && onchange '**.py' -- npm run octoprint:restart",
+    "watch:js": "cd $npm_package_config_src && onchange 'static/js/**.js' -- npm run build:js",
+    "watch:less": "cd $npm_package_config_src && onchange 'static/less/**.less' -- npm run build:less",
+    "syncserver": "cd $npm_package_config_src && browser-sync start --listen localhost --proxy localhost:5000 --files 'static/dist/**' 'templates/**' translations/**.mo",
+    "octoprint": ".env/bin/octoprint daemon --debug --pid $(readlink -f .env/octprint.pid) --basedir $(readlink -f .data) --host localhost",
+    "octoprint:start": "npm run octoprint -- start",
+    "octoprint:stop": "npm run octoprint -- stop",
+    "octoprint:restart": "npm run octoprint -- restart && npx browser-sync reload"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.27.5",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "less": "^4.1.1",
+    "less-plugin-glob": "^3.0.0",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "rollup": "^2.58.0"
+  }
+}

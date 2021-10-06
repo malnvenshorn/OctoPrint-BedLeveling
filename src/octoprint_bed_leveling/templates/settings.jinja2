@@ -1,0 +1,123 @@
+<form class="form-horizontal" data-bind="with: $root.viewModels.settings">
+
+  <h3>{{ _("Appearance") }}</h3>
+
+  <div class="control-group">
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-bind="checked: plugin.insertBeforeCustomControls">{{ _("Insert before custom controls") }}</input>
+        </label>
+    </div>
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-bind="checked: plugin.collapseByDefault">{{ _("Collapse by default") }}</input>
+        </label>
+    </div>
+  </div>
+
+  <h3>{{ _("Offsets") }}</h3>
+
+  <div class="control-group">
+    <div class="control-label">
+      {{ _("Travel Hight (Z)") }}
+    </div>
+      <div class="controls">
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right"  data-bind="value: plugin.travelHight" />
+          <span class="add-on">mm</span>
+        </div>
+      </div>
+  </div>
+
+  <h3>{{ _("Probe Points") }}</h3>
+
+  <div class="row-fluid row-margin">
+    <div class="offset3 span2">
+      X
+    </div>
+    <div class="span2">
+      Y
+    </div>
+  </div>
+
+  <div class="control-group" data-bind="with: plugin.probePoints.frontLeft">
+    <div class="control-label">
+      {{ _("Front/Left") }}
+    </div>
+      <div class="controls">
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: x" />
+          <span class="add-on">mm</span>
+        </div>
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: y" />
+          <span class="add-on">mm</span>
+        </div>
+      </div>
+  </div>
+
+  <div class="control-group" data-bind="with: plugin.probePoints.frontRight">
+    <div class="control-label">
+      {{ _("Front/Right") }}
+    </div>
+      <div class="controls">
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: x" />
+          <span class="add-on">mm</span>
+        </div>
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: y" />
+          <span class="add-on">mm</span>
+        </div>
+      </div>
+  </div>
+
+  <div class="control-group" data-bind="with: plugin.probePoints.center">
+    <div class="control-label">
+      {{ _("Center") }}
+    </div>
+      <div class="controls">
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: x" />
+          <span class="add-on">mm</span>
+        </div>
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: y" />
+          <span class="add-on">mm</span>
+        </div>
+      </div>
+  </div>
+
+  <div class="control-group" data-bind="with: plugin.probePoints.backLeft">
+    <div class="control-label">
+      {{ _("Back/Left") }}
+    </div>
+      <div class="controls">
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: x" />
+          <span class="add-on">mm</span>
+        </div>
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: y" />
+          <span class="add-on">mm</span>
+        </div>
+      </div>
+  </div>
+
+  <div class="control-group" data-bind="with: plugin.probePoints.backRight">
+    <div class="control-label">
+      {{ _("Back/Right") }}
+    </div>
+      <div class="controls">
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: x" />
+          <span class="add-on">mm</span>
+        </div>
+        <div class="input-append">
+          <input type="number" min="0" step="1" class="input-mini text-right" data-bind="value: y" />
+          <span class="add-on">mm</span>
+        </div>
+      </div>
+  </div>
+
+</form>

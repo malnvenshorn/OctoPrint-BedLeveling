@@ -1,0 +1,89 @@
+<div id="control_plugin_bed_leveling" data-bind="visible: $root.viewModels.controlTab.hasPermission(), with: $root.viewModels.controlTab" style="clear: both;">
+  <div class="custom_section">
+    <h1 data-bind="toggleContent: { class: 'fa-caret-right fa-caret-down', parent: '.custom_section', container: '> div' }">
+      <i class="fas fa-caret-down" ></i>
+      {{ _("Bed Leveling") }}
+    </h1>
+
+    <div>
+      <div class="alert alert-block">
+        <strong>{{ _("Attention:") }}</strong> {{ _("Do not use before homing your axes first!") }}
+      </div>
+
+      <table class="inline-table">
+        <tr>
+          <!-- back -->
+          <td><button class="btn btn-block" data-bind="click: () => moveTo('backLeft'), enable: controlEnabled()">●</button></td>
+          <td><div class="horizontal-line line-skin"></div></td>
+          <td>{{ _("Back") }}</td>
+          <td><div class="horizontal-line line-skin"></div></td>
+          <td><button class="btn btn-block" data-bind="click: () => moveTo('backRight'), enable: controlEnabled()">●</button></td>
+        </tr>
+        <tr>
+          <td><div class="vertical-line line-skin"></div></td>
+          <td></td>
+          <td><div class="vertical-line line-skin"></div></td>
+          <td></td>
+          <td><div class="vertical-line line-skin"></div></td>
+        </tr>
+        <tr>
+          <!-- center -->
+          <td>{{ _("L") }}</td>
+          <td><div class="horizontal-line line-skin"></div></td>
+          <td><button class="btn btn-block" data-bind="click: () => moveTo('center'), enable: controlEnabled()">●</button></td>
+          <td><div class="horizontal-line line-skin"></div></td>
+          <td>{{ _("R") }}</td>
+        </tr>
+        <tr>
+          <td><div class="vertical-line line-skin"></div></td>
+          <td></td>
+          <td><div class="vertical-line line-skin"></div></td>
+          <td></td>
+          <td><div class="vertical-line line-skin"></div></td>
+        </tr>
+        <tr>
+          <!-- front -->
+          <td><button class="btn btn-block" data-bind="click: () => moveTo('frontLeft'), enable: controlEnabled()">●</button></td>
+          <td><div class="horizontal-line line-skin"></div></td>
+          <td>{{ _("Front") }}</td>
+          <td><div class="horizontal-line line-skin"></div></td>
+          <td><button class="btn btn-block" data-bind="click: () => moveTo('frontRight'), enable: controlEnabled()">●</button></td>
+        </tr>
+      </table>
+
+      <div class="jog-panel">
+        <h1>{{ _("Topography") }}</h1>
+
+        <table class="inline-table bed-table" data-bind="with: bedTopography">
+          <tr>
+            <td data-bind="text: backLeft"></td>
+            <td></td>
+            <td data-bind="text: backRight"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td data-bind="text: center"></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td data-bind="text: frontLeft"></td>
+            <td></td>
+            <td data-bind="text: frontRight"></td>
+          </tr>
+        </table>
+
+        <div style="float: left;">
+          <button class="btn btn-block control-box" data-bind="click: requestPosition">{{ _("Get Z Position") }}</button>
+          <button class="btn btn-block control-box" data-bind="click: resetBedTopography">{{ _("Reset") }}</button>
+          <label class="checkbox">
+            <input type="checkbox" data-bind="checked: topographyRelativeToCenter"/>
+            {{ _("Relative to center") }}
+          </label>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

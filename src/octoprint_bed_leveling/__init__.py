@@ -1,0 +1,71 @@
+import octoprint.plugin
+
+
+class BedLevelingPlugin(
+    octoprint.plugin.SettingsPlugin,
+    octoprint.plugin.AssetPlugin,
+    octoprint.plugin.TemplatePlugin
+):
+
+    # Settings
+
+    def get_settings_defaults(self):
+        return dict(
+            insertBeforeCustomControls=True,
+            collapseByDefault=False,
+            travelHight=5,
+            probePoints=dict(
+                frontLeft=dict(x=None, y=None),
+                frontRight=dict(x=None, y=None),
+                center=dict(x=None, y=None),
+                backLeft=dict(x=None, y=None),
+                backRight=dict(x=None, y=None),
+            ),
+        )
+
+    # Assets
+
+    def get_assets(self):
+        return dict(
+            js=["dist/plugin.js"],
+            css=["dist/plugin.css"],
+        )
+
+    def get_template_configs(self):
+        return [
+            dict(type="settings", template="settings.jinja2"),
+            dict(type="generic", template="control_tab.jinja2"),
+        ]
+
+    # SoftwareUpdate
+
+    def get_update_information(self):
+        # Define the configuration for your plugin to use with the Software Update
+        # Plugin here. See https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html
+        # for details.
+        return {
+            "bed_leveling": {
+                "displayName": f"{self._plugin_name} Plugin",
+                "displayVersion": self._plugin_version,
+
+                # version check: github repository
+                "type": "github_release",
+                "user": "malnvenshorn",
+                "repo": "octoprint-bedleveling",
+                "current": self._plugin_version,
+
+                # update method: pip
+                "pip": "https://github.com/malnvenshorn/octoprint-bedleveling/archive/{target_version}.zip",
+            },
+        }
+
+
+__plugin_name__ = "Bed Leveling"
+
+__plugin_pythoncompat__ = ">=3.7"
+
+__plugin_implementation__ = BedLevelingPlugin()
+
+__plugin_hooks__ = {
+    "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
+}
