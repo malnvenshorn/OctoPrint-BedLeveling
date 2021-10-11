@@ -1,4 +1,4 @@
-import { autobind } from '../utils';
+import { autobind, showDialog, hideDialog } from '../utils';
 
 export default class ControlTab {
     constructor(core, settings) {
@@ -42,9 +42,12 @@ export default class ControlTab {
         ));
     }
 
+    // ViewModel callbacks
+
     onBeforeBinding() {
-        const { insertBeforeCustomControls, collapseByDefault } = this.settings.plugin;
+        const { insertBeforeCustomControls, collapseByDefault, showWarning } = this.settings.plugin;
         insertBeforeCustomControls.subscribe(ControlTab.insertView);
+        showWarning.subscribe(ControlTab.showWarning);
 
         ControlTab.collapseView(collapseByDefault());
         ControlTab.insertView(insertBeforeCustomControls());
@@ -56,6 +59,8 @@ export default class ControlTab {
             this.awaitingPositionUpdate = false;
         }
     }
+
+    // Class methods
 
     moveTo(point) {
         this.currentProbePoint = point;
@@ -87,6 +92,11 @@ export default class ControlTab {
         });
     }
 
+    hideWarningConfirmed() {
+        this.settings.plugin.showWarning(false);
+        hideDialog('#plugin_bed_leveling_hide_warning_dialog');
+    }
+
     static insertView(insertBeforeCustom) {
         document.getElementById('control').insertBefore(
             document.getElementById('control_plugin_bed_leveling'),
@@ -105,5 +115,14 @@ export default class ControlTab {
             iconNode.classList.toggle('fa-caret-right');
             containerNode.style.display = collapse ? 'none' : null;
         }
+    }
+
+    static showWarning(show) {
+        const warningNode = document.querySelector('#control_plugin_bed_leveling .alert');
+        warningNode.style.display = show ? 'block' : 'none';
+    }
+
+    static showHideWarningDialog() {
+        showDialog('#plugin_bed_leveling_hide_warning_dialog');
     }
 }

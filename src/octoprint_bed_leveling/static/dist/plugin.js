@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 /**
  * When a function is called as a method of an object, 'this' is set to the object the method is
  * called on. This 'autobind' function is intended to be used within a class constructor to bind
@@ -13,6 +11,19 @@ function autobind() {
             this[name] = this[name].bind(this);
         }
     });
+}
+
+/* OctoPrint's bundled version of Bootstrap still depends on jQuery */
+/* global $ */
+
+/* Show Bootstrap dialogs */
+function showDialog(selector) {
+    $(selector).modal('show');
+}
+
+/* Hide Bootstrap dialogs */
+function hideDialog(selector) {
+    $(selector).modal('hide');
 }
 
 class ControlTab {
@@ -57,9 +68,12 @@ class ControlTab {
         ));
     }
 
+    // ViewModel callbacks
+
     onBeforeBinding() {
-        const { insertBeforeCustomControls, collapseByDefault } = this.settings.plugin;
+        const { insertBeforeCustomControls, collapseByDefault, showWarning } = this.settings.plugin;
         insertBeforeCustomControls.subscribe(ControlTab.insertView);
+        showWarning.subscribe(ControlTab.showWarning);
 
         ControlTab.collapseView(collapseByDefault());
         ControlTab.insertView(insertBeforeCustomControls());
@@ -71,6 +85,8 @@ class ControlTab {
             this.awaitingPositionUpdate = false;
         }
     }
+
+    // Class methods
 
     moveTo(point) {
         this.currentProbePoint = point;
@@ -102,6 +118,11 @@ class ControlTab {
         });
     }
 
+    hideWarningConfirmed() {
+        this.settings.plugin.showWarning(false);
+        hideDialog('#plugin_bed_leveling_hide_warning_dialog');
+    }
+
     static insertView(insertBeforeCustom) {
         document.getElementById('control').insertBefore(
             document.getElementById('control_plugin_bed_leveling'),
@@ -120,6 +141,15 @@ class ControlTab {
             iconNode.classList.toggle('fa-caret-right');
             containerNode.style.display = collapse ? 'none' : null;
         }
+    }
+
+    static showWarning(show) {
+        const warningNode = document.querySelector('#control_plugin_bed_leveling .alert');
+        warningNode.style.display = show ? 'block' : 'none';
+    }
+
+    static showHideWarningDialog() {
+        showDialog('#plugin_bed_leveling_hide_warning_dialog');
     }
 }
 
@@ -190,5 +220,6 @@ OCTOPRINT_VIEWMODELS.push({
     elements: [
         '#settings_plugin_bed_leveling',
         '#control_plugin_bed_leveling',
+        '#plugin_bed_leveling_hide_warning_dialog',
     ],
 });

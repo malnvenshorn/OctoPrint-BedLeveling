@@ -1,0 +1,17 @@
+<div id="plugin_bed_leveling_hide_warning_dialog" class="modal hide fade-in" aria-hidden="true" data-bind="with: $root.viewModels.controlTab">
+
+  <div class="modal-header">
+    <a href="#" class="close" data-dismiss="modal">&times;</a>
+    <h3>{{ _('Hide warning message?') }}</h3>
+  </div>
+
+  <div class="modal-body">
+    <p>{{ _("This can be turned on again in the settings.") }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">{{ _('Cancel') }}</button>
+    <button class="btn btn-primary" data-bind="click: hideWarningConfirmed">{{ _("Yes") }}</button>
+  </div>
+
+</div>

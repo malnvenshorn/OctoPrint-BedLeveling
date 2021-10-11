@@ -13,6 +13,7 @@ class BedLevelingPlugin(
         return dict(
             insertBeforeCustomControls=True,
             collapseByDefault=False,
+            showWarning=True,
             travelHight=5,
             probePoints=dict(
                 frontLeft=dict(x=None, y=None),
@@ -35,6 +36,7 @@ class BedLevelingPlugin(
         return [
             dict(type="settings", template="settings.jinja2"),
             dict(type="generic", template="control_tab.jinja2"),
+            dict(type="generic", template="hide_warning_dialog.jinja2"),
         ]
 
     # SoftwareUpdate

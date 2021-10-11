@@ -5,6 +5,9 @@
   margin-left: 38px;
   margin-top: -20px;
 }
+#control_plugin_bed_leveling .close {
+  top: 0;
+}
 #control_plugin_bed_leveling .inline-table {
   float: left;
   margin-bottom: 10px;

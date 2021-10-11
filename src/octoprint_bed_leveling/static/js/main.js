@@ -54,5 +54,6 @@ OCTOPRINT_VIEWMODELS.push({
     elements: [
         '#settings_plugin_bed_leveling',
         '#control_plugin_bed_leveling',
+        '#plugin_bed_leveling_hide_warning_dialog',
     ],
 });
