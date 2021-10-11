@@ -4,7 +4,7 @@ import octoprint.plugin
 class BedLevelingPlugin(
     octoprint.plugin.SettingsPlugin,
     octoprint.plugin.AssetPlugin,
-    octoprint.plugin.TemplatePlugin
+    octoprint.plugin.TemplatePlugin,
 ):
 
     # Settings
