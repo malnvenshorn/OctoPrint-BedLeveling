@@ -22,12 +22,15 @@ export default class ControlTab {
         probePoints.forEach((point) => {
             this.zPositionForPoint[point] = ko.observable();
             this.bedTopography[point] = ko.pureComputed(() => {
+                let value;
                 if (this.topographyRelativeToCenter()
                         && this.zPositionForPoint[point]() !== undefined
                         && this.zPositionForPoint.center() !== undefined) {
-                    return this.zPositionForPoint[point]() - this.zPositionForPoint.center();
+                    value = Number.parseFloat(this.zPositionForPoint[point]() - this.zPositionForPoint.center());
+                } else {
+                    value = Number.parseFloat(this.zPositionForPoint[point]());
                 }
-                return this.zPositionForPoint[point]();
+                return Number.isNaN(value) ? undefined : value.toFixed(1);
             });
         });
 
