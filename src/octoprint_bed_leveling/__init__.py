@@ -40,9 +40,6 @@ class BedLevelingPlugin(
     # SoftwareUpdate
 
     def get_update_information(self):
-        # Define the configuration for your plugin to use with the Software Update
-        # Plugin here. See https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html
-        # for details.
         return {
             "bed_leveling": {
                 "displayName": f"{self._plugin_name} Plugin",
