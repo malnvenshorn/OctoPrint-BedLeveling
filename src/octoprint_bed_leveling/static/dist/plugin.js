@@ -74,9 +74,8 @@ class ControlTab {
     // ViewModel callbacks
 
     onBeforeBinding() {
-        const { insertBeforeCustomControls, collapseByDefault, showWarning } = this.settings.plugin;
+        const { insertBeforeCustomControls, collapseByDefault } = this.settings.plugin;
         insertBeforeCustomControls.subscribe(ControlTab.insertView);
-        showWarning.subscribe(ControlTab.showWarning);
 
         ControlTab.collapseView(collapseByDefault());
         ControlTab.insertView(insertBeforeCustomControls());
@@ -144,11 +143,6 @@ class ControlTab {
             iconNode.classList.toggle('fa-caret-right');
             containerNode.style.display = collapse ? 'none' : null;
         }
-    }
-
-    static showWarning(show) {
-        const warningNode = document.querySelector('#control_plugin_bed_leveling .alert');
-        warningNode.style.display = show ? 'block' : 'none';
     }
 
     static showHideWarningDialog() {
