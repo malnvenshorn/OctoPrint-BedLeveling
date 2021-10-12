@@ -9,14 +9,15 @@
     "build:js": "cd $npm_package_config_src && rollup --format es --file static/dist/plugin.js static/js/main.js",
     "build:less": "cd $npm_package_config_src && lessc --glob static/less/main.less static/dist/plugin.css",
     "browsersync": "npm-run-all -p watch:* syncserver",
-    "watch:py": "cd $npm_package_config_src && onchange '**.py' -- npm run octoprint:restart",
+    "watch:py": "cd $npm_package_config_src && onchange '**.py' -- npm run octoprint:resync",
     "watch:js": "cd $npm_package_config_src && onchange 'static/js/**.js' -- npm run build:js",
     "watch:less": "cd $npm_package_config_src && onchange 'static/less/**.less' -- npm run build:less",
     "syncserver": "cd $npm_package_config_src && browser-sync start --listen localhost --proxy localhost:5000 --files 'static/dist/**' 'templates/**' translations/**.mo",
-    "octoprint": ".env/bin/octoprint daemon --debug --pid $(readlink -f .env/octprint.pid) --basedir $(readlink -f .data) --host localhost",
+    "octoprint": ".env/bin/octoprint daemon --pid $(readlink -f .env/octprint.pid) --basedir $(readlink -f .data)",
     "octoprint:start": "npm run octoprint -- start",
     "octoprint:stop": "npm run octoprint -- stop",
-    "octoprint:restart": "npm run octoprint -- restart && npx browser-sync reload"
+    "octoprint:restart": "npm run octoprint -- restart",
+    "octoprint:resync": "npm run octoprint:restart && npx browser-sync reload"
   },
   "devDependencies": {
     "browser-sync": "^2.27.5",
