@@ -37,3 +37,13 @@
 #settings_plugin_bed_leveling .input-append {
   margin-right: 8px;
 }
+#settings_plugin_bed_leveling .controls .header-span {
+  float: left;
+  width: 120px;
+  min-height: 30px;
+}
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
