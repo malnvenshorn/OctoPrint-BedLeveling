@@ -8,6 +8,9 @@
 #control_plugin_bed_leveling .close {
   top: 0;
 }
+#control_plugin_bed_leveling .jog-panel h1 {
+  cursor: auto;
+}
 #control_plugin_bed_leveling .inline-table {
   float: left;
   margin-bottom: 10px;
