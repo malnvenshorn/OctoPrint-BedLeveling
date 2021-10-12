@@ -5,7 +5,7 @@ from setuptools import setup
 
 plugin_name = "OctoPrint-BedLeveling"
 plugin_description = "Adds controls to make leveling the printing bed more comfortable."
-plugin_version = "0.1.0"
+plugin_version = "0.2.0"
 plugin_author = "Sven Lohrmann"
 plugin_author_email = "malnvenshorn@mailbox.org"
 plugin_url = "https://github.com/malnvenshorn/octoprint-bedleveling"
