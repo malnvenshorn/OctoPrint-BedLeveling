@@ -1,8 +1,12 @@
 import ControlTab from './viewmodels/control_tab';
 import Settings from './viewmodels/settings';
 
+import registerKnockoutExtensions from './knockout/extensions';
+
 class BedLevelingPlugin {
     constructor(dependencies) {
+        registerKnockoutExtensions();
+
         this.core = { viewModels: {} };
 
         [
@@ -54,6 +58,5 @@ OCTOPRINT_VIEWMODELS.push({
     elements: [
         '#settings_plugin_bed_leveling',
         '#control_plugin_bed_leveling',
-        '#plugin_bed_leveling_hide_warning_dialog',
     ],
 });

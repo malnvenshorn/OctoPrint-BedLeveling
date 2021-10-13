@@ -1,4 +1,4 @@
-import { autobind, showDialog, hideDialog } from '../utils';
+import { autobind } from '../utils';
 
 export default class ControlTab {
     constructor(core, settings) {
@@ -42,6 +42,12 @@ export default class ControlTab {
         // Check for control permission. If not granted the view is hidden
         this.hasPermission = ko.pureComputed(() => (
             this.core.control.loginState.hasAnyPermissionKo(this.core.control.access.permissions.CONTROL)()
+        ));
+
+        // Hide warning message, either temporarily or if disabled in the settings
+        this.hideWarningTemporarily = ko.observable(false).toggleable();
+        this.hideWarning = ko.pureComputed(() => (
+            this.settings.plugin.hideWarning() || this.hideWarningTemporarily()
         ));
     }
 
@@ -94,11 +100,6 @@ export default class ControlTab {
         });
     }
 
-    hideWarningConfirmed() {
-        this.settings.plugin.showWarning(false);
-        hideDialog('#plugin_bed_leveling_hide_warning_dialog');
-    }
-
     static insertView(insertBeforeCustom) {
         document.getElementById('control').insertBefore(
             document.getElementById('control_plugin_bed_leveling'),
@@ -117,9 +118,5 @@ export default class ControlTab {
             iconNode.classList.toggle('fa-caret-right');
             containerNode.style.display = collapse ? 'none' : null;
         }
-    }
-
-    static showHideWarningDialog() {
-        showDialog('#plugin_bed_leveling_hide_warning_dialog');
     }
 }

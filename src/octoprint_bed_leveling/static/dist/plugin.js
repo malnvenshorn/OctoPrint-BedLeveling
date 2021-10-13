@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+
 /**
  * When a function is called as a method of an object, 'this' is set to the object the method is
  * called on. This 'autobind' function is intended to be used within a class constructor to bind
@@ -11,19 +13,6 @@ function autobind() {
             this[name] = this[name].bind(this);
         }
     });
-}
-
-/* OctoPrint's bundled version of Bootstrap still depends on jQuery */
-/* global $ */
-
-/* Show Bootstrap dialogs */
-function showDialog(selector) {
-    $(selector).modal('show');
-}
-
-/* Hide Bootstrap dialogs */
-function hideDialog(selector) {
-    $(selector).modal('hide');
 }
 
 class ControlTab {
@@ -68,6 +57,11 @@ class ControlTab {
         // Check for control permission. If not granted the view is hidden
         this.hasPermission = ko.pureComputed(() => (
             this.core.control.loginState.hasAnyPermissionKo(this.core.control.access.permissions.CONTROL)()
+        ));
+
+        this.hideWarningTemporarily = ko.observable(false).toggleable();
+        this.hideWarning = ko.pureComputed(() => (
+            this.settings.plugin.hideWarning() || this.hideWarningTemporarily()
         ));
     }
 
@@ -120,11 +114,6 @@ class ControlTab {
         });
     }
 
-    hideWarningConfirmed() {
-        this.settings.plugin.showWarning(false);
-        hideDialog('#plugin_bed_leveling_hide_warning_dialog');
-    }
-
     static insertView(insertBeforeCustom) {
         document.getElementById('control').insertBefore(
             document.getElementById('control_plugin_bed_leveling'),
@@ -144,10 +133,6 @@ class ControlTab {
             containerNode.style.display = collapse ? 'none' : null;
         }
     }
-
-    static showHideWarningDialog() {
-        showDialog('#plugin_bed_leveling_hide_warning_dialog');
-    }
 }
 
 class Settings {
@@ -164,8 +149,23 @@ class Settings {
     }
 }
 
+var registerKnockoutExtensions = () => {
+    /**
+     * Same as knockouts build-in 'subscribe' function except it calls the callback
+     * once after subscribing. Not using an arrow function to ensure the correct context.
+     */
+    ko.observable.fn.toggleable = function koObservableExtensionToggleable() {
+        this.toggle = () => {
+            this(!this());
+        };
+        return this;
+    };
+};
+
 class BedLevelingPlugin {
     constructor(dependencies) {
+        registerKnockoutExtensions();
+
         this.core = { viewModels: {} };
 
         [
@@ -217,6 +217,5 @@ OCTOPRINT_VIEWMODELS.push({
     elements: [
         '#settings_plugin_bed_leveling',
         '#control_plugin_bed_leveling',
-        '#plugin_bed_leveling_hide_warning_dialog',
     ],
 });
