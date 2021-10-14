@@ -78,8 +78,13 @@ class ControlTab {
 
     onEventPositionUpdate(payload) {
         if (this.awaitingPositionUpdate) {
-            this.zPositionForPoint[this.currentProbePoint](payload.z);
             this.awaitingPositionUpdate = false;
+            // Set topography value if we are at a probe point
+            if (this.currentProbePoint === undefined) return;
+            const expectedPosition = ko.mapping.toJS(this.settings.plugin.probePoints[this.currentProbePoint]);
+            if (payload.x === expectedPosition.x && payload.y === expectedPosition.y) {
+                this.zPositionForPoint[this.currentProbePoint](payload.z);
+            }
         }
     }
 
@@ -103,10 +108,8 @@ class ControlTab {
     }
 
     requestPosition() {
-        if (this.currentProbePoint !== undefined) {
-            this.awaitingPositionUpdate = true;
-            OctoPrint.control.sendGcode('M114');
-        }
+        this.awaitingPositionUpdate = true;
+        OctoPrint.control.sendGcode('M114');
     }
 
     resetBedTopography() {
