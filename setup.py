@@ -27,7 +27,7 @@ except ImportError:
 
 cmdclass = dict()
 
-translation_dir = os.path.join(plugin_source_folder, plugin_package, "translations")
+translation_dir = os.path.join('.', "translations")
 pot_file = os.path.join(translation_dir, "messages.pot")
 
 cmdclass.update(
