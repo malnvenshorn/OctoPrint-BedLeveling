@@ -28,14 +28,14 @@ class BedLevelingPlugin(
 
     def get_assets(self):
         return dict(
-            js=["dist/plugin.js"],
-            css=["dist/plugin.css"],
+            js=["dist/bed_leveling.js"],
+            css=["dist/bed_leveling.css"],
         )
 
     def get_template_configs(self):
         return [
-            dict(type="settings", template="settings.jinja2"),
-            dict(type="generic", template="control_tab.jinja2"),
+            dict(type="settings", template="bed_leveling_settings.jinja2"),
+            dict(type="generic", template="bed_leveling_control_tab.jinja2"),
         ]
 
     # SoftwareUpdate

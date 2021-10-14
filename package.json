@@ -1,13 +1,14 @@
 {
   "config": {
+    "name": "bed_leveling",
     "src": "src/octoprint_bed_leveling/"
   },
   "scripts": {
     "clean": "cd $npm_package_config_src && rm -rf static/dist/",
     "build": "npm-run-all clean lint:* -p build:*",
     "lint:js": "npx eslint src/",
-    "build:js": "cd $npm_package_config_src && rollup --format es --file static/dist/plugin.js static/js/main.js",
-    "build:less": "cd $npm_package_config_src && lessc --glob static/less/main.less static/dist/plugin.css",
+    "build:js": "cd $npm_package_config_src && rollup --format es --file static/dist/${npm_package_config_name}.js static/js/main.js",
+    "build:less": "cd $npm_package_config_src && lessc --glob static/less/main.less static/dist/${npm_package_config_name}.css",
     "browsersync": "npm-run-all -p watch:* syncserver",
     "watch:py": "cd $npm_package_config_src && onchange '**.py' -- npm run octoprint:resync",
     "watch:js": "cd $npm_package_config_src && onchange 'static/js/**.js' -- npm run build:js",

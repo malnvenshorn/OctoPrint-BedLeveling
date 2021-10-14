@@ -59,6 +59,7 @@ class ControlTab {
             this.core.control.loginState.hasAnyPermissionKo(this.core.control.access.permissions.CONTROL)()
         ));
 
+        // Hide warning message, either temporarily or if disabled in the settings
         this.hideWarningTemporarily = ko.observable(false).toggleable();
         this.hideWarning = ko.pureComputed(() => (
             this.settings.plugin.hideWarning() || this.hideWarningTemporarily()
@@ -151,8 +152,8 @@ class Settings {
 
 var registerKnockoutExtensions = () => {
     /**
-     * Same as knockouts build-in 'subscribe' function except it calls the callback
-     * once after subscribing. Not using an arrow function to ensure the correct context.
+     * Adds a toggle() method to an observable.
+     * Calling toggle() will negate the current value.
      */
     ko.observable.fn.toggleable = function koObservableExtensionToggleable() {
         this.toggle = () => {
