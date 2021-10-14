@@ -147,6 +147,13 @@ class Settings {
     initialize(settings) {
         this.global = settings;
         this.plugin = this.global.settings.plugins.bed_leveling;
+
+        // Ensure these settings are of integer type
+        this.plugin.travelHight = this.plugin.travelHight.extend({ integer: 0 });
+        Object.keys(this.plugin.probePoints).forEach((point) => {
+            this.plugin.probePoints[point].x = this.plugin.probePoints[point].x.extend({ integer: 0 });
+            this.plugin.probePoints[point].y = this.plugin.probePoints[point].y.extend({ integer: 0 });
+        });
     }
 }
 
@@ -160,6 +167,26 @@ var registerKnockoutExtensions = () => {
             this(!this());
         };
         return this;
+    };
+
+    /**
+     * Convert observable to integer type.
+     */
+    ko.extenders.integer = function koObservableInteger(target, defaultValue) {
+        const result = ko.pureComputed({
+            read: target,
+            write: (newValue) => {
+                const newVaueInteger = Number.parseInt(newValue, 10);
+                const defaultValueInteger = Number.parseInt(defaultValue, 10);
+                if (Number.isNaN(newVaueInteger)) {
+                    target(Number.isNaN(defaultValueInteger) ? 0 : defaultValueInteger);
+                } else {
+                    target(newVaueInteger);
+                }
+            },
+        });
+        result(target());
+        return result;
     };
 };
 
